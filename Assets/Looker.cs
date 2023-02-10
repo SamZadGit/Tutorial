@@ -15,11 +15,13 @@ public class Looker : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-
+        
     }
 
     private void FixedUpdate()
     {
         this.GetComponent<Transform>().LookAt(target.transform);
+
+        this.transform.Translate(new Vector3(0,0,0.01f), Space.Self);
     }
 }

@@ -4,8 +4,11 @@ using UnityEngine;
 
 public class Rotator : MonoBehaviour
 {
-    private bool rotate = true;
     public float rotationSpeed = 0.3f;
+    public PickerUpper player;
+
+    private bool rotate;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -15,25 +18,26 @@ public class Rotator : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-                if(Input.GetKey(KeyCode.R))
+        if (Input.GetKey(KeyCode.R))
         {
-            rotate = !rotate;
+            rotate = true;
         }
-         if(Input.GetKey(KeyCode.V))
+        else
         {
-            Debug.Log(rotationSpeed);
-            rotationSpeed += 0.1f;
-        }
-         if(Input.GetKey(KeyCode.B))
-        {
-            Debug.Log(rotationSpeed);
-            rotationSpeed -= 0.1f;
+            rotate = false;
         }
     }
-
+    
     void FixedUpdate()
     {
-        if(rotate)
+        if (player != null)
+        {
+            if (rotate && player.count >= 3)
+            {
+                this.GetComponent<Transform>().Rotate(0, rotationSpeed, 0);
+            }
+        }
+        else
         {
             this.GetComponent<Transform>().Rotate(0, rotationSpeed, 0);
         }
